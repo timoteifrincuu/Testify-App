@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Testify App</string>
+    <string name="title_activity_progres_view">ProgresView</string>
 </resources>
