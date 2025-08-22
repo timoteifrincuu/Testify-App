@@ -14,4 +14,9 @@
     <color name="blue">#0000FF</color>
     <color name="orange">#FFA500</color>
     <color name="brown">#A52A2A</color>
+    <color name="burgundy">#A35452</color>
+    <color name="purple">#87587D</color>
+    <color name="violet_300">#656070</color>
+    <color name="light_blue">#A9C6FD</color>
+
 </resources>

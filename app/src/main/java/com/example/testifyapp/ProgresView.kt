@@ -8,6 +8,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -40,17 +41,26 @@ import com.example.testifyapp.R
 @Composable
 fun ProgresViewCard(
     modifier: Modifier = Modifier,
+    showsProgress: Boolean = true,
     title: String,
     description: String
 ){
+
+
+
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .padding(16.dp)
+            .padding(7.dp) //????
+            .padding(10.dp) //????
+            .clip(RoundedCornerShape(16.dp))
+            .background(colorResource(id = R.color.light_blue))
+
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
+
         ) {
             Column(
                 modifier = Modifier
@@ -82,17 +92,19 @@ fun ProgresViewCard(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        LinearProgressIndicator(
-            progress = { progress.toFloat() },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(6.dp)
-                .clip(RoundedCornerShape(3.dp)),
-            color = colorResource(id = R.color.blue),
-            trackColor = Color.Green,
-            strokeCap = ProgressIndicatorDefaults.LinearStrokeCap,
-            gapSize = 20.dp
-        )
+        if (showsProgress) {
+            LinearProgressIndicator(
+                progress = { progress.toFloat() },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(6.dp)
+                    .clip(RoundedCornerShape(3.dp)),
+                color = colorResource(id = R.color.blue),
+                trackColor = Color.Green,
+                strokeCap = ProgressIndicatorDefaults.LinearStrokeCap,
+                gapSize = 20.dp,
+            )
+        }
     }
 }
 
