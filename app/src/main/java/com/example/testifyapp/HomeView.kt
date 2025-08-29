@@ -1,72 +1,79 @@
 package com.example.testifyapp
 
-import android.graphics.drawable.Icon
-import androidx.annotation.DrawableRes
-import androidx.compose.foundation.Image
+import SegmentedControlDemo
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Send
-import androidx.compose.material.icons.filled.Share
-import androidx.compose.material.icons.filled.Start
-import androidx.compose.material3.Icon
-import androidx.compose.material3.SegmentedButtonDefaults.Icon
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.testifyapp.ui.theme.TestifyAppTheme
 
+// Assuming ProgresViewCardData is a data class like this:
+// data class ProgresViewCardData(val title: String, val description: String, val showsProgress: Boolean = true)
+
 @Composable
-fun HomeView(modifier: Modifier){
+fun HomeView(modifier: Modifier = Modifier) {
 
-    Column(modifier = modifier
+    // Sample data for the ProgresViewCards
+    val progresViewCardItems = listOf(
+        ProgresViewCardData("Moment de rugaciune", "noteaza idei", false),
+        ProgresViewCardData("Devotional", "noteaza idei"),
+        ProgresViewCardData("Predici", "noteaza idei")
+    )
 
-    ) {
+    LazyColumn(modifier = modifier, verticalArrangement = Arrangement.spacedBy(7.dp)) {
 
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 20.dp,  end = 20.dp, top = 30.dp, bottom = 26.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Text(
-                text = "Versetul de azi",
-                textAlign = TextAlign.Start,
-                modifier = Modifier.weight(1f)
-            )
-            Text(
-                text = "Isaia 15 : 3",
-                textAlign = TextAlign.End,
-                modifier = Modifier.weight(1f)
-            )
+        item{
+            SegmentedControlDemo()
+        }
+        item {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 20.dp, end = 20.dp, top = 30.dp, bottom = 16.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text = "Versetul de azi",
+                    textAlign = TextAlign.Start,
+                    modifier = Modifier.weight(1f)
+                )
+                Text(
+                    text = "Isaia 15 : 3",
+                    textAlign = TextAlign.End,
+                    modifier = Modifier.weight(1f)
+                )
+            }
         }
 
-        VerseOfTheDayView()
+        item {
+            VerseOfTheDayView()
+        }
 
-        ProgresViewCard(title="Moment de rugaciune", description = "noteaza idei", showsProgress = false)
-        ProgresViewCard(title="Devotional", description = "noteaza idei")
-        ProgresViewCard(title="Predici", description = "noteaza idei")
+        items(progresViewCardItems) { cardData ->
+            ProgresViewCard(
+                title = cardData.title,
+                description = cardData.description,
+                showsProgress = cardData.showsProgress
+            )
+        }
     }
 }
+
+// You'll need to define this data class, or adjust as per your actual ProgresViewCardData structure
+data class ProgresViewCardData(val title: String, val description: String, val showsProgress: Boolean = true)
 
 @Preview(showBackground = true)
 @Composable
 fun HomeViewPreview() {
     TestifyAppTheme {
-        HomeView(modifier = Modifier)
+        HomeView()
     }
 }

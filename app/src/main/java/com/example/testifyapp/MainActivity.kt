@@ -57,26 +57,35 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     topBar = {
                         TopAppBar(
-                            colors = TopAppBarDefaults.topAppBarColors(
-                                containerColor = MaterialTheme.colorScheme.primaryContainer,
-                                titleContentColor = MaterialTheme.colorScheme.primary,
-                            ),
+//                            colors = TopAppBarDefaults.topAppBarColors(
+//                                containerColor = MaterialTheme.colorScheme.primaryContainer,
+//                                titleContentColor = MaterialTheme.colorScheme.primary,
+//                            ),
                             title = {
                                 Row(
                                     modifier = Modifier.fillMaxWidth().padding(16.dp),
                                     horizontalArrangement = Arrangement.SpaceBetween
                                 ) {
                                     Text("Biblia Testify")
-                                    Icon(
-                                        painter = painterResource(id =  R.drawable.user),
-                                        contentDescription = "user",
-                                        tint = colorResource(id = R.color.burgundy),
-                                    )
-                                    Icon(
-                                        painter = painterResource(id =  R.drawable.settings),
-                                        contentDescription = "Settings",
-                                        tint = colorResource(id = R.color.burgundy),
-                                    )
+
+                                    Row {
+                                        IconButton(onClick = { /* do something */ }) {
+                                            Icon(
+                                                painter = painterResource(id =  R.drawable.user),
+                                                contentDescription = "user",
+                                                tint = colorResource(id = R.color.burgundy),
+                                            )
+                                        }
+                                        IconButton(onClick = { /* do something */ }) {
+                                            Icon(
+                                                painter = painterResource(id =  R.drawable.settings),
+                                                contentDescription = "Settings",
+                                                tint = colorResource(id = R.color.burgundy),
+                                            )
+                                        }
+                                    }
+
+
                                 }
                             }
                         )
@@ -90,27 +99,30 @@ class MainActivity : ComponentActivity() {
                                 ){
                                     Column {
                                         IconButton(onClick = { /* do something */ }) {
-                                            Icon(Icons.Filled.Home,
+                                            Icon(
+                                                painter = painterResource(id =  R.drawable.home),
                                                 contentDescription = "Acasa",
-                                                tint = colorResource(id = R.color.burgundy)
-                                                )
+                                                tint = colorResource(id = R.color.burgundy),
+                                            )
                                         }
                                         Text("Acasa")
                                     }
                                     Column {
                                         IconButton(onClick = { /* do something */ }) {
-                                            Icon(Icons.Filled.Book,
-                                                contentDescription = "Book",
-                                                tint = colorResource(id = R.color.burgundy)
-                                                )
+                                            Icon(
+                                                painter = painterResource(id =  R.drawable.book_open),
+                                                contentDescription = "Citeste",
+                                                tint = colorResource(id = R.color.burgundy),
+                                            )
                                         }
                                         Text("Citeste")
                                     }
                                     Column {
                                         IconButton(onClick = { /* do something */ }) {
-                                            Icon(Icons.Filled.School,
-                                                contentDescription = "School",
-                                                tint = colorResource(id = R.color.burgundy)
+                                            Icon(
+                                                painter = painterResource(id =  R.drawable.graduate),
+                                                contentDescription = "Testeaza",
+                                                tint = colorResource(id = R.color.burgundy),
                                             )
                                         }
                                         Text("Testeaza")
@@ -124,7 +136,7 @@ class MainActivity : ComponentActivity() {
                 ) { innerPadding ->
                     print(innerPadding)
 
-                    HomeView(modifier = Modifier.padding(top = innerPadding.calculateTopPadding()))
+                    HomeView(modifier = Modifier.padding(top = innerPadding.calculateTopPadding(), bottom = innerPadding.calculateBottomPadding()))
                 }
             }
         }
