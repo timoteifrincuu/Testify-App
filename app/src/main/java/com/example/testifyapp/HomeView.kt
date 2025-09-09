@@ -21,6 +21,9 @@ import com.example.testifyapp.ui.theme.TestifyAppTheme
 @Composable
 fun HomeView(modifier: Modifier = Modifier) {
 
+
+
+
     // Sample data for the ProgresViewCards
     val progresViewCardItems = listOf(
         ProgresViewCardData("Moment de rugaciune", "noteaza idei", false),
@@ -54,7 +57,21 @@ fun HomeView(modifier: Modifier = Modifier) {
         }
 
         item {
-            VerseOfTheDayView()
+            ExpandableBookItem(title = "Geneza", chapters = 50)
+        }
+        item {
+            ExpandableBookItem(title = "Exodul", chapters = 40)
+        }
+        item {
+            ExpandableBookItem(title = "Levitic", chapters = 27)
+        }
+
+        item {
+                VerseOfTheDayView()
+        }
+
+        item{
+            VerseBottomBarView()
         }
 
         items(progresViewCardItems) { cardData ->
@@ -64,6 +81,8 @@ fun HomeView(modifier: Modifier = Modifier) {
                 showsProgress = cardData.showsProgress
             )
         }
+
+
     }
 }
 

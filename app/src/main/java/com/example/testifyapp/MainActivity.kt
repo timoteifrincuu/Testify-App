@@ -1,5 +1,6 @@
 package com.example.testifyapp
 
+import SettingsScreen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -44,6 +45,9 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.testifyapp.ui.theme.TestifyAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -52,6 +56,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+            val navController = rememberNavController()
             TestifyAppTheme {
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
@@ -76,7 +81,10 @@ class MainActivity : ComponentActivity() {
                                                 tint = colorResource(id = R.color.burgundy),
                                             )
                                         }
-                                        IconButton(onClick = { /* do something */ }) {
+                                        //SETINGS BUTTON
+                                        IconButton(onClick = {
+                                            navController.navigate(TestifyRoutes.Settings.name)
+                                        }) {
                                             Icon(
                                                 painter = painterResource(id =  R.drawable.settings),
                                                 contentDescription = "Settings",
@@ -136,9 +144,44 @@ class MainActivity : ComponentActivity() {
                 ) { innerPadding ->
                     print(innerPadding)
 
+                    NavHost(
+                        navController = navController,
+                        startDestination = TestifyRoutes.Settings.name,
+                        modifier = Modifier.padding(innerPadding)
+                    ) {
+                        composable(route = TestifyRoutes.Settings.name) {
+                            SettingsScreen()
+                        }
+                    }
+
                     HomeView(modifier = Modifier.padding(top = innerPadding.calculateTopPadding(), bottom = innerPadding.calculateBottomPadding()))
                 }
             }
         }
     }
 }
+
+
+
+
+
+
+
+//Navigation Between Screens
+
+enum class TestifyRoutes(){
+   Settings,
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
