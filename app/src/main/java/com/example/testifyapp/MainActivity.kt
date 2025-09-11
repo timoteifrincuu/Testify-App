@@ -106,7 +106,9 @@ class MainActivity : ComponentActivity() {
                                     horizontalArrangement = Arrangement.SpaceBetween
                                 ){
                                     Column {
-                                        IconButton(onClick = { /* do something */ }) {
+                                        IconButton(onClick = {
+                                            navController.navigate(TestifyRoutes.Home.name)
+                                        }) {
                                             Icon(
                                                 painter = painterResource(id =  R.drawable.home),
                                                 contentDescription = "Acasa",
@@ -146,15 +148,18 @@ class MainActivity : ComponentActivity() {
 
                     NavHost(
                         navController = navController,
-                        startDestination = TestifyRoutes.Settings.name,
+                        startDestination = TestifyRoutes.Home.name,
                         modifier = Modifier.padding(innerPadding)
                     ) {
+                        composable(route = TestifyRoutes.Home.name) {
+                            HomeView()
+                        }
                         composable(route = TestifyRoutes.Settings.name) {
                             SettingsScreen()
                         }
                     }
 
-                    HomeView(modifier = Modifier.padding(top = innerPadding.calculateTopPadding(), bottom = innerPadding.calculateBottomPadding()))
+//                    HomeView(modifier = Modifier.padding(top = innerPadding.calculateTopPadding(), bottom = innerPadding.calculateBottomPadding()))
                 }
             }
         }
@@ -170,7 +175,8 @@ class MainActivity : ComponentActivity() {
 //Navigation Between Screens
 
 enum class TestifyRoutes(){
-   Settings,
+    Home,
+    Settings,
 }
 
 
