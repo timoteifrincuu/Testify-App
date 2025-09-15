@@ -3,14 +3,19 @@ package com.example.testifyapp
 import android.R.attr.description
 import android.R.attr.progress
 import android.accessibilityservice.GestureDescription
+import android.media.Image
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -40,22 +45,35 @@ import com.example.testifyapp.R
 @Composable
 fun ProgresViewCard(
     modifier: Modifier = Modifier,
+    showsProgress: Boolean = true,
     title: String,
-    description: String
+    description: String,
 ){
-    Column(
+
+
+
+    Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(16.dp)
+            .padding(horizontal = 14.dp)
+            .clip(RoundedCornerShape(16.dp))
+            .border(
+                width = 1.dp, // grosimea liniei
+                colorResource(id = R.color.purple),
+                shape = RoundedCornerShape(16.dp) //clip si shape nu i the same?
+            ),
+        horizontalArrangement = Arrangement.SpaceBetween
+
     ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
+        Column(
+            modifier = Modifier
+                .padding(all = 10.dp)
+//                .fillMaxHeight(),
+//            verticalArrangement = Arrangement.SpaceBetween
+
         ) {
             Column(
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(end = 8.dp)
+                modifier = Modifier,
             ) {
                 Text(
                     text = title,
@@ -70,29 +88,33 @@ fun ProgresViewCard(
                 )
             }
 
-            Image(
-                painter = painterResource(id = R.drawable.ic_launcher_background), // replace with your image
-                contentDescription = null,
-                modifier = Modifier
-                    .size(80.dp)
-                    .clip(RoundedCornerShape(8.dp)),
-                contentScale = ContentScale.Crop
-            )
+            if (showsProgress) {
+                Spacer(modifier = Modifier.height(30.dp))
+
+                LinearProgressIndicator(
+                    progress = { progress.toFloat() },
+                    modifier = Modifier
+                        .height(6.dp)
+                        .clip(RoundedCornerShape(3.dp)),
+                    color = colorResource(id = R.color.green),
+                    trackColor = Color.Red,
+                    strokeCap = ProgressIndicatorDefaults.LinearStrokeCap,
+                    gapSize = 20.dp,
+                )
+            }
+            Spacer(modifier = Modifier.height(4.dp))
+
         }
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        LinearProgressIndicator(
-            progress = { progress.toFloat() },
+        Image(
+            painter = painterResource(id = R.drawable.ic_launcher_background), // replace with your image
+            contentDescription = null,
             modifier = Modifier
-                .fillMaxWidth()
-                .height(6.dp)
-                .clip(RoundedCornerShape(3.dp)),
-            color = colorResource(id = R.color.blue),
-            trackColor = Color.Green,
-            strokeCap = ProgressIndicatorDefaults.LinearStrokeCap,
-            gapSize = 20.dp
+                .size(110.dp),
+            contentScale = ContentScale.Crop
         )
+
+
+
     }
 }
 
